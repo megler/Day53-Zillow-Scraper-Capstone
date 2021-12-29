@@ -19,7 +19,7 @@ import json
 
 load_dotenv()
 
-service = Service("D:\Documents\Bootcamp\chromedriver.exe")
+service = Service(os.environ.get("DRIVER"))
 driver = webdriver.Chrome(service=service)
 driver.get(os.environ.get("FORM_URL"))
 
@@ -68,28 +68,34 @@ house_rent = [
 ]
 
 
-for i in range(len(house_address)):
-    driver.get(os.environ.get("FORM_URL"))
-    fill_address = driver.find_element(
-        By.XPATH,
-        '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input',
-    )
-    fill_address.send_keys(house_address[i])
+def fill_form():
+    """Open Google Form, fill each field with scraped data, submitting after each entry."""
+    for i in range(len(house_address)):
+        driver.get(os.environ.get("FORM_URL"))
+        fill_address = driver.find_element(
+            By.XPATH,
+            '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input',
+        )
+        fill_address.send_keys(house_address[i])
 
-    fill_rent = driver.find_element(
-        By.XPATH,
-        '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input',
-    )
-    fill_rent.send_keys(house_rent[i])
+        fill_rent = driver.find_element(
+            By.XPATH,
+            '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input',
+        )
+        fill_rent.send_keys(house_rent[i])
 
-    fill_link = driver.find_element(
-        By.XPATH,
-        '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input',
-    )
-    fill_link.send_keys(house_links[i])
+        fill_link = driver.find_element(
+            By.XPATH,
+            '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input',
+        )
+        fill_link.send_keys(house_links[i])
 
-    submit_button = driver.find_element(
-        By.XPATH,
-        '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span/span',
-    )
-    submit_button.click()
+        submit_button = driver.find_element(
+            By.XPATH,
+            '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span/span',
+        )
+        submit_button.click()
+    driver.quit()
+
+
+fill_form()
