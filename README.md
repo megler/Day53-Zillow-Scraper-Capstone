@@ -26,8 +26,8 @@ header. The header in this code currently works, though no guarantee it always w
 change this to anything returned in the JSON object created on line 36. To see what
 is returned, run a for loop like this:
 
-    for result in data["cat1"]["searchResults"]["listResults"]:
-        print(result)
+        for result in data["cat1"]["searchResults"]["listResults"]:
+            print(result)
 
 You can pick and choose what you want to data gather from there.
 
